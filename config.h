@@ -1,5 +1,4 @@
 /* See LICENSE file for copyright and license details. */
-
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -72,7 +71,8 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "/home/carlo/.local/kitty.app/bin/kitty", NULL };
+#include "shift-tools.c"
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -87,18 +87,20 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ ControlMask|ShiftMask,        XK_w,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_q,      killclient,     {0} },
+	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	// { MODKEY,                       XK_space,  setlayout,      {0} },
 	// { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_Left,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_Right, focusmon,       {.i = +1 } },
-	{ MODKEY|Mod1Mask,              XK_Left,  tagmon,         {.i = -1 } },
-	{ MODKEY|Mod1Mask,              XK_Right, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_b,              shiftboth,          {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_n,              shiftboth,          {.i = +1} },
+	// { MODKEY,                       XK_Left,  focusmon,       {.i = -1 } },
+	// { MODKEY,                       XK_Right, focusmon,       {.i = +1 } },
+	// { MODKEY|Mod1Mask,              XK_Left,  tagmon,         {.i = -1 } },
+	// { MODKEY|Mod1Mask,              XK_Right, tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
