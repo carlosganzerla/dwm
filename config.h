@@ -31,6 +31,9 @@ static const char *colors[][3]      = {
     [SchemeSel]  = { sel_fg,      sel_bg,    sel_border },  // the focused win
 };
 
+/* custom commands */
+static const char *screenshot[]  = { "scrot", "/home/carlo/screenshots/%Y-%m-%d-%T_scrot.png", NULL };
+
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4"};
 
@@ -71,7 +74,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
-static const char *termcmd[]  = { "/home/carlo/.local/kitty.app/bin/kitty", NULL };
+static const char *termcmd[]  = { "kitty", NULL };
 #include "shift-tools.c"
 
 static Key keys[] = {
@@ -111,6 +114,8 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	/* custom commands */
+	{0,                             XK_Print,  spawn,          {.v = screenshot } },
 };
 
 /* button definitions */
