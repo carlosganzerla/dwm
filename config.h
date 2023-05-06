@@ -35,7 +35,7 @@ static const char *colors[][3]      = {
 static const char *screenshot[]  = { "scrot", "/home/carlo/screenshots/%Y-%m-%d-%T_scrot.png", NULL };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4"};
+static const char *tags[] = { "1", "2", "3", "4", "D", "E"};
 
 static const Rule rules[] = {
 	/* xprop(1):
