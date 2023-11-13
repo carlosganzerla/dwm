@@ -7,35 +7,16 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=18" };
 static const char dmenufont[]       = "monospace:size=18";
   
-static const char norm_fg[] = "#a89984";
-static const char norm_bg[] = "#282828";
-static const char norm_border[] = "#928374";
-
-static const char sel_fg[] = "#282828";
-static const char sel_bg[] = "#d65d0e";
-static const char sel_border[] = "#a89984";
-
-static const char urg_fg[] = "#a89984";
-static const char urg_bg[] = "#cc241d";
-static const char urg_border[] = "#b8bb26";
-
-static const char title_fg[] = "#b8bb26";
-static const char title_bg[] = "#3A3A3A";
-
-static const char col_borderbar[]   = "#75715e";
-
+#include "theme.h"
 
 static const char *colors[][3]      = {
     /*               fg           bg         border                         */
-    [SchemeNorm] = { norm_fg,     norm_bg,   norm_border }, // unfocused wins
-    [SchemeSel]  = { sel_fg,      sel_bg,    sel_border },  // the focused win
+    [SchemeNorm]       = { gray3,   black,  gray2 }, // unfocused wins,
+    [SchemeSel]        = { gray4,   blue,   blue  }, // the focused wins
 };
 
-/* custom commands */
-static const char *screenshot[]  = { "scrot", "/home/carlo/screenshots/%Y-%m-%d-%T_scrot.png", NULL };
-
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "D", "E"};
+static const char *tags[] = { "1", "2", "3", "4", "5", "6"};
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -73,14 +54,19 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", gray4, "-nf", black, "-sb", gray3, "-sf", blue, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
+/* custom commands */
+static const char *screenshot[]  = { "scrot", "/home/carlo/screenshots/%Y-%m-%d-%T_scrot.png", NULL };
+static const char *webcmd[]  = { "google-chrome-stable", NULL };
+
 #include "shift-tools.c"
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_w,      spawn,          {.v = webcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_h,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_l,      focusstack,     {.i = -1 } },
@@ -94,12 +80,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,              XK_Right,           view_adjacent,  { .i = +1 } },
+	{ MODKEY,              XK_Left,           view_adjacent,  { .i = -1 } },
 	// { MODKEY,                       XK_space,  setlayout,      {0} },
 	// { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_b,              shiftboth,          {.i = -1} },
-	{ MODKEY|ShiftMask,             XK_n,              shiftboth,          {.i = +1} },
+	{ MODKEY|ShiftMask,             XK_Left,              shiftboth,          {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_Right,              shiftboth,          {.i = +1} },
 	// { MODKEY,                       XK_Left,  focusmon,       {.i = -1 } },
 	// { MODKEY,                       XK_Right, focusmon,       {.i = +1 } },
 	// { MODKEY|Mod1Mask,              XK_Left,  tagmon,         {.i = -1 } },
@@ -134,4 +122,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
