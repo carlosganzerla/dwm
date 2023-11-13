@@ -11,8 +11,8 @@ static const char dmenufont[]       = "monospace:size=18";
 
 static const char *colors[][3]      = {
     /*               fg           bg         border                         */
-    [SchemeNorm]       = { gray3,   black,  gray2 }, // unfocused wins,
-    [SchemeSel]        = { gray4,   blue,   blue  }, // the focused wins
+    [SchemeNorm]       = { white,   black,  gray3 }, // unfocused wins,
+    [SchemeSel]        = { black,   blue,   gray4  }, // the focused wins
 };
 
 /* tagging */
@@ -54,7 +54,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", gray4, "-nf", black, "-sb", gray3, "-sf", blue, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", black, "-nf", white, "-sb", blue, "-sf", black, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
 /* custom commands */
 static const char *screenshot[]  = { "scrot", "/home/carlo/screenshots/%Y-%m-%d-%T_scrot.png", NULL };
